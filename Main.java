@@ -4,10 +4,10 @@ import java.util.ArrayList;
 public class Main {
 
     static public void main(String[] args) {
-        
+
         //arreglo de numeros
         int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 2, 3, 4, 2, 2, 2, 2, 2, 3, 4, 5, 6, 6, 8, 9, 7, 6, 6, 6, 6, 6, 6, 8, 4, 6, 6, 6, 6, 6, 6, 6, 6, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 8};
-        
+
         //tamano de los min runs. normalmente es entre 32 y 64
         int min_run = 6;
 
@@ -45,7 +45,7 @@ public class Main {
                     //si se quiebra en el momento que es menor al min run, se va a setar brokenafter como false, indicando que este fue quebrado antes de llegar al min run, en caso contrario true, que indica que se quebro al moento de llegar al run o despues
                     brokenAfter = (count >= min_run);
                 }
-            //si el orden es descendente
+                //si el orden es descendente
             } else {
                 if (numbers[i] > numbers[i - 1]) {
                     isBroken = true;
@@ -62,7 +62,7 @@ public class Main {
                     reverse(numbers, end + 1, i);
                     itwasreversed = true;
                 }
-                
+
                 //finalmente se suma el contador de ese run y pasa al siguiente ciclo hata completar el run min
                 count++;
                 continue;
@@ -70,29 +70,29 @@ public class Main {
 
             //en caso de que ya se rompio el orden cuando el minrun ya es completado o cuando estamos en el ultimo elemento, es hora de terminar el run y comenzar con otro nuevo
             if ((isBroken && count >= min_run) || i == (numbers.length - 1)) {
-                
+
                 lastend = end; //se actualiza el inicio del index del run
                 end = (numbers.length - 1 == i) ? i : i - 1; //se actualiza el final del run actual
 
                 //cuando no sea ascendente ni haya sido reverseado
                 if (!isAscendent && !itwasreversed) {
-                    
+
                     //invertir arreglo actual
                     reverse(numbers, lastend + 1, end);
-                    
+
                     //en caso de que se haya quebrado en el min run o despues
                     if (brokenAfter) {
-                         System.out.printf("descendente y aplicar solo reverse [%d..%d]%n", lastend + 1, end);
-                        
+                        //System.out.printf("descendente y aplicar solo reverse [%d..%d]%n", lastend + 1, end);
+
                         //si es el ultimo elemento, forzar insertion sort si el ultimo penultimo elemento es menor al ultimo
-                        if (i == numbers.length - 1 && (numbers[i]>numbers[i-1])) {
+                        if (i == numbers.length - 1 && (numbers[i] > numbers[i - 1])) {
                             InsertionSort.generateInsertion(numbers, lastend + 1, end);
-                             System.out.printf("forzando insertion");
+                            //System.out.printf("forzando insertion");
                         }
 
                     } else {
                         InsertionSort.generateInsertion(numbers, lastend + 1, end);
-                         System.out.printf("descendente, aplicar reverse y luego insertion sort [%d..%d]%n", lastend + 1, end);
+                        //System.out.printf("descendente, aplicar reverse y luego insertion sort [%d..%d]%n", lastend + 1, end);
                     }
 
                 }
@@ -101,22 +101,22 @@ public class Main {
                 if (!isAscendent && itwasreversed) {
                     //solo aplicar insertion sort
                     InsertionSort.generateInsertion(numbers, lastend + 1, end);
-                     System.out.printf("descendente y ya se aplico reverse, necesitamos insertion sort [%d..%d]%n", lastend + 1, end);
+                    //System.out.printf("descendente y ya se aplico reverse, necesitamos insertion sort [%d..%d]%n", lastend + 1, end);
                 }
 
                 //cando es ascendente y cuando fue quebrado antes
                 if (isAscendent && !brokenAfter) {
                     //solo aplicar insertion sort
                     InsertionSort.generateInsertion(numbers, lastend + 1, end);
-                     System.out.printf("ascendente y quebro antes del 6, se aplica InsertionSort [%d..%d ]%n", lastend + 1, end);
+                    //System.out.printf("ascendente y quebro antes del 6, se aplica InsertionSort [%d..%d ]%n", lastend + 1, end);
 
                 }
 
                 //cuando es ascendente y fue quebrado despues
                 if (isAscendent && brokenAfter) {
-                     System.out.printf("ascendente no se requiere nada [%d..%d ]%n", lastend + 1, end);
+                    //System.out.printf("ascendente no se requiere nada [%d..%d ]%n", lastend + 1, end);
                     //ultimo elemento, forzar insertion sort si el ultimo elemento es menor al penultimo
-                    if (i == numbers.length - 1  && (numbers[i]<numbers[i-1]))  {
+                    if (i == numbers.length - 1 && (numbers[i] < numbers[i - 1])) {
                         InsertionSort.generateInsertion(numbers, lastend + 1, end);
                         // System.out.printf("forzando insertion");
                     }
@@ -142,7 +142,6 @@ public class Main {
         for (int i = 0; i < numbers.length; i++) {
             System.out.println(numbers[i]);
         }
-
 
     }
 
