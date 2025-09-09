@@ -4,7 +4,7 @@ public class InsertionSort{
 
     }
     
-    public void generateInsertion(int[] numbers, int idxStart, int idxEnd){
+    public static void generateInsertion(int[] numbers, int idxStart, int idxEnd){
 
         for(int i=idxStart; i<=idxEnd; i++){
 
